@@ -6,3 +6,4 @@ tmp*
 fdata
 models
 __pycache__
+node_modules
