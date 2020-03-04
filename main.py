@@ -13,10 +13,11 @@ from utils import (
     get_regex_content,
     get_sw_content,
     get_stop_words,
+    get_stem_content,
 )
 
 docs = []
-file_path_list = glob2.glob("./data/*")[:3]
+file_path_list = glob2.glob("./data/*")[:]
 
 for file_path in file_path_list:
     print(f"正在處理 {file_path}...")
@@ -24,6 +25,7 @@ for file_path in file_path_list:
     content = get_raw_content(file_path)  # 原始內容
     content = get_regex_content(content)  # 正則過濾
     content = get_sw_content(content)  # 去除停用詞
+    content = get_stem_content(content)  # Porter Stemming
     content = get_ner_content(content)  # NER過濾
     docs.append(content)
 

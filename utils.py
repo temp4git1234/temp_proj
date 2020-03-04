@@ -5,6 +5,10 @@ import docx
 import glob2
 from pathlib import Path
 from ner import Parser
+from nltk.stem import PorterStemmer
+from nltk.tokenize import word_tokenize
+
+ps = PorterStemmer()
 
 tags = {
     "O": 0,
@@ -27,6 +31,14 @@ def get_stop_words():
         stop_words = f.readlines()
         stop_words = [sw.replace("\n", "") for sw in stop_words]
     return stop_words
+
+
+def get_stem_content(content):
+    """
+    Porter Stemming
+    """
+    words = content.split(" ")
+    return " ".join([ps.stem(word) for word in words])
 
 
 def get_raw_content(file_path):
