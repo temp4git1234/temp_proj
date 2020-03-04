@@ -3,3 +3,6 @@ output/*
 .vscode
 tmp*
 !.keep
+fdata
+models
+__pycache__

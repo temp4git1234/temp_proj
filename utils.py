@@ -52,18 +52,23 @@ def get_raw_content(file_path):
         raise NotImplementedError
 
 
+def get_sw_content(content):
+    """
+    去除停用詞
+    """
+    stop_words = get_stop_words()
+    content = " ".join(
+        list(filter(lambda word: word not in stop_words, content.split(" ")))
+    )
+    return content
+
+
 def get_regex_content(content):
     """
     依照需求(regex)過濾檔案內文
     input: 原始的檔案內文
     output: 過濾後的檔案內文
     """
-    # 去除停用詞
-    # stop_words = get_stop_words()
-    # content = " ".join(
-    #     list(filter(lambda word: word not in stop_words, content.split(" ")))
-    # )
-    # 其他過濾規則
     content = re.sub(
         "\s+", " ", content
     )  # 避免換行符去除後 造成兩詞相連 (不保留換行等符號 但需保留詞間空格)
@@ -77,4 +82,4 @@ def get_ner_content(content):
     """
     根據 ner 過濾人名
     """
-    return " ".join([tp[0] for tp in p.predict(cnt) if not "PER" in tp[1]])
+    return " ".join([tp[0] for tp in p.predict(content) if not "PER" in tp[1]])
